@@ -1,0 +1,28 @@
+title: Sample story that is part of a big epic
+description: |
+  This is where the story gets a nice description
+  so that everybody clearly understands what is at
+  stake. It should state who wants what, for example
+  "as a user, I want to have chocolate chips cookies."
+  It should also mention:
+  
+  * technical challenges
+  * unknowns
+  * impact on existing components
+  * etc
+
+  At least one task must follow; possibly at least one
+  for writing documentation about the feature and one
+  to test it (functional or integration tests).
+  
+  this can be formatted with markdown
+  -----------------------------------
+
+  which is pretty cool.
+tasks:
+  - title: a very important task
+    project: software-factory/software-factory
+    description: |
+      this optional field will be a note on the task.
+  - title: another very important task affecting another project
+    project: managesf
