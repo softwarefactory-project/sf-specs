@@ -1,0 +1,16 @@
+title: Disable parts of gerrit's settings page
+description: |
+  If manageSF handles user settings, the following links should be
+  disabled
+  
+  * https://sf/r/#/settings/contact
+  * https://sf/r/#/settings/ssh-keys
+  * https://sf/r/#/settings/http-password (Done in https://softwarefactory-project.io/r/#/c/6415/5/config/ansible/roles/sf-gateway/templates/gateway.common.j2 )
+  * https://sf/r/#/settings/web-identities (e-mail management)
+tasks:
+  - title: Hide links in gerrit's settings page
+    project: software-factory/software-factory
+  - title: Redirect URLs to SF's settings page
+    project: software-factory/software-factory
+  - title: Allow access to gerrit settings REST API from within the deployment only
+    project: software-factory/software-factory

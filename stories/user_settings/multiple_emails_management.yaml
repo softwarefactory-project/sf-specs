@@ -1,0 +1,49 @@
+title: Native multiple e-mails management
+description: |
+  As a Software Factory user, I want to be able to manage my e-mails
+  through the manageSF API.
+
+  Typical CRUD operations (except update, as it doesn't make much sense)
+  should be supported.
+
+  ```GET manage/services_users/<ID>/e-mails/
+     [{"id": 1, "e-mail": "titi@toto", "primary": True}, {"id":2, "e-mail": "tata@tutu", "primary": False}, ...]```
+
+  ```GET manage/services_users/<ID>/e-mails/1
+     {"id": 1, "e-mail": "titi@toto", "primary": True}```
+
+  ```POST manage/services_users/<ID>/e-mails/lololo@lululu
+     HTTP 201 or HTTP 403 if e-mail is already claimed (by any user)```
+
+  Following a new valid POST action, an e-mail is sent to the address with an activation link. The activation link
+  is a template page that will request the following API call to validate the e-mail.
+
+  ```GET manage/services_users/<ID>/e-mails/1/<random activation code>
+     HTTP 201 + {"id": 1, "e-mail": "titi@toto", "primary": True} if client sets header "Accept: application/json",
+     HTTP 400 if code + user id is incorrect```
+
+  ```PUT manage/services_users/<ID>/e-mails/3
+     {"id":3, "e-mail": "lololo@lululu", "primary": True}```
+
+  ```DEL manage/services_users/<ID>/e-mails/1
+     HTTP 204 OK or HTTP 403 Forbidden if e-mail is primary```
+tasks:
+  - title: Add API endpoint manage/services_users/<ID>/e-mails/
+    project: software-factory/managesf
+  - title: Add e-mail verification system
+    project: software-factory/managesf
+  - title: Create SF template for e-mail validation page
+    project: software-factory/software-factory
+  - title: Synchronize native backend with gerrit and Storyboard user registration and when modifications occur
+    project: software-factory/managesf  
+  - title: upgrade path
+    project: software-factory/software-factory
+    description: |
+      - update database schema to add e-mails table
+      - provision e-mails from gerrit automatically
+  - title: Implement e-mails management in CLI
+    project: software-factory/python-sfmanager
+  - title: Implement e-mails management in settings page
+    project: software-factory/software-factory
+  - title: Document e-mail management system
+    project: software-factory/software-factory

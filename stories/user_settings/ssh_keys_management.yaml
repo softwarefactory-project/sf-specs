@@ -1,0 +1,37 @@
+title: Native SSH key management
+description: |
+  As a Software Factory user, I want to be able to manage my SSH keys
+  through the manageSF API.
+
+  Typical CRUD operations (except update, as it doesn't make much sense)
+  should be supported.
+
+  ```GET manage/services_users/<ID>/ssh_keys/
+     [{"id": 1, "ssh-rsa ..."}, {"id":2, "ssh-rsa ..."}, ...]```
+
+  ```GET manage/services_users/<ID>/ssh_keys/1
+     {"id": 1, "ssh-rsa ..."}```
+
+  ```POST manage/services_users/<ID>/ssh_keys/
+     {"id":3, "ssh-rsa ..."}```
+
+  ```DEL manage/services_users/<ID>/ssh_keys/1
+     HTTP 204 OK```
+tasks:
+  - title: Add API endpoint manage/services_users/<ID>/
+    project: software-factory/managesf
+  - title: Add API endpoint manage/services_users/<ID>/ssh_keys
+    project: software-factory/managesf
+  - title: Synchronize native backend with gerrit at user registration and when modifications occur
+    project: software-factory/managesf  
+  - title: upgrade path
+    project: software-factory/software-factory
+    description: |
+      - update database schema to add ssh keys table
+      - provision keys from gerrit automatically
+  - title: Implement ssh keys management in CLI
+    project: software-factory/python-sfmanager
+  - title: Implement ssh keys management in settings page
+    project: software-factory/software-factory
+  - title: Document ssh keys management
+    project: software-factory/software-factory
