@@ -1,0 +1,22 @@
+title: Split repositories
+description: |
+  With the recent packaging of all SF component, the last manually installed piece
+  is the sfconfig. To enable a better install process (disk-image-builder or on
+  top of a regular centos), sfconfig needs to be packaged.
+
+  To finish the transition here is the proposed repository split::
+
+  * sf-docs for docs/
+  * sf-config for config/
+  * sf-release for upgrade/
+  * release.softwarefactory-project.io (or github similar page) for the README
+  * sf-ci for the rest
+tasks:
+  - title: Filter-branch sf-docs
+    project: software-factory/software-factory
+  - title: Filter-branch sf-config
+    project: software-factory/software-factory
+  - title: Filter-branch sf-release and modify ci script to consume external upgrade process
+    project: software-factory/software-factory
+  - title: Move README and CHANGELOG to a page repository
+    project: software-factory/software-factory
