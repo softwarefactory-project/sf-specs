@@ -1,0 +1,126 @@
+title: ManageSF API v2.0
+description: |
+  # Objectives
+
+  * Get the API closer to best practices, with sanitized input & output
+  * Tighter cross-services integration to get transversal information, like jobs run for a specific task, nodes info...
+  * Make it workflow oriented for consumption in a future unified UI/dashboard
+
+  # prerequisites
+
+  * User settings epic for the users endpoint will be addressed in parallel
+
+  # Getting data from Zuul and Nodepool
+
+  There are two ways to proceed.
+
+  * The services' SQL backends, although Nodepool's might lack history
+  * Zookeeper should also keep data in its own backend
+  * The firehose consumer (hydrant) if nothing else is available
+
+  # API summary
+
+  The complete API description can be found on swagger to get an better idea of what is expected:: https://app.swaggerhub.com/apis/mhuin/manageSFv2.0/2.0
+
+  # New features to implement
+
+  * Pagination:: all GET operations will support the query operators __"skip"__ and __"limit"__ and return a __"total"__ element with the amount of items returned by the query
+  * Saner outputs::
+  ..* drop the mention of the service returning the results
+  ..* unified key form (underscores)
+  ..* unified error messages as JSON output
+
+  # Dropped endpoints
+
+  * __local_users__, migrated to cauth
+  * __htpasswd__, merge the functionality with api key to avoid confusion
+  * __backup__, obsolete
+  * __images__, support dropped from nodepool
+
+  # New endpoints
+
+  ## discovery
+
+  endpoint contacted by clients to learn about available REST API versions, endpoints
+
+  ## reviews
+
+  basic endpoint to search and list reviews. In order not to be redundant with the existing gerrit API, it will output only CI related information like jenkins votes, jobs and their results.
+
+  ## projects
+
+  basic endpoint to search and list projects. Also acts as shortcuts to common searches like reviews related to a project.
+
+  ## stories
+
+  allow a user to list stories for reporting purposes. Stories will also list associated tasks.
+
+  ## tasks
+
+  allow a user to get tasks. Tasks hold references to associated reviews.
+
+  # "Stable" endpoints
+
+  These endpoints are mostly isofunctional with v1.0 except for some possible output changes.
+
+  ## hooks
+
+  no changes
+
+  ## resources
+
+  No changes.
+
+  ## jobs
+
+  same as v1 overall. The output will be improved thanks to fetching data from firehose events instead of Jenkins.
+
+  ## nodes
+
+  no changes
+
+  ## images
+
+  * Under its own hierarchy rather than under "nodes/"
+  * Disambiguation of operations: "dib-images" for DIB rebuilds, "cloud-images" for cloud uploads
+  * no more action id lookup
+
+  ## users (previously services_users)
+
+  * Email, SSH keys: see user_settings epic for details on what will be new.
+  * {id}/stories, {id}/tasks, {id}/reviews are shortcuts to list stories, tasks and reviews related to a specific user.
+tasks:
+  - title: manageSF v2.0 API placeholder
+    project: software-factory/managesf
+  - title: merge htpasswd with the api key functionality
+    project: software-factory/managesf
+  - title: modify user settings page to reflect merging of api key with htpasswd
+    project: software-factory/sf-config
+  - title: migrate endpoints that barely change over to v2.0 (nodes, images, hooks)
+    project: software-factory/managesf
+  - title: implement API discovery endpoint
+    project: software-factory/managesf
+  - title: Turn pysflib into a real client library, based on v2 API
+    project: software-factory/pysflib
+  - title: Implement Users API v2
+    project: software-factory/managesf
+  - title: Implement Users API v2
+    project: software-factory/pysflib
+  - title: Implement Jobs API v2
+    project: software-factory/managesf
+  - title: Implement Jobs API v2
+    project: software-factory/pysflib
+  - title: Implement Reviews API v2
+    project: software-factory/managesf
+  - title: Implement Reviews API v2
+    project: software-factory/pysflib
+  - title: Implement Stories & Tasks API v2
+    project: software-factory/managesf
+  - title: Implement Stories & Tasks API v2
+    project: software-factory/pysflib
+  - title: Implement Resources & Projects API v2
+    project: software-factory/managesf
+  - title: Implement Resources & Projects API v2
+    project: software-factory/pysflib
+  - title:  Refactor CLI to use pysflib v2
+    project: software-factory/python-sfmanager

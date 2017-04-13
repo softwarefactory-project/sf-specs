@@ -1,0 +1,19 @@
+title: Migrate local users in cauth
+description: |
+  The local users backend was initially implemented in managesf for
+  convenience, but it should be within cauth instead.
+
+  It is also the opportunity to unify user backends, and discard users
+  definitions in cauth's config file.
+tasks:
+  - title: migrate local users endpoint to cauth
+    project: software-factory/cauth
+  - title: remove config file defined users in favor to local users
+    project: software-factory/cauth
+  - title: "local users: database migration procedure from managesf to cauth"
+    project: software-factory/sf-config
+  - title: "config file users: migration from cauth config.py to local users"
+  - title: Refactor local users commands in CLI
+    project: software-factory/python-sfmanager
+  - title: remove local users endpoint
+    project: software-factory/managesf
