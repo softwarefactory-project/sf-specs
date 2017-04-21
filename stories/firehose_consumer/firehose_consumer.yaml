@@ -1,0 +1,35 @@
+title: Firehose consumer
+description: |
+  # Objectives
+
+  Consume the firehose flux to store data. This data will be used by managesf
+  whenever services cannot provide enough information easily for its API (I'm
+  looking at you, jenkins nodepool and zuul)
+
+  Let's call the consuming service __hydrant__ to keep with firehose!
+
+  # Storage
+
+  Given that firehose produces JSON and that most queries will be text based,
+  ElasticSearch is the easiest choice for the backend.
+
+  # Prerequisites
+
+  * Firehose must be a mandatory service
+  * ElasticSearch must be a mandatory service
+
+  # Implementation
+
+  * The consumer should be a python service listening to all software-factory defined
+  channels on firehose.
+  * The data must be consistently timestamped: this is the case for messages emitted
+  by zuul, nodepool and gerrit but a timestamp must be added to jenkins messages.
+tasks:
+  - title: make ElasticSearch a required component for managesf
+    project: software-factory/software-factory
+  - title: make Firehose a required component for managesf
+    project: software-factory/software-factory
+  - title: Create the hydrant project
+    project: software-factory/software-factory
+  - title: define firehose-related data structures in elasticsearch
+    project: software-factory/software-factory
