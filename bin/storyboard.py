@@ -51,8 +51,12 @@ for root, dirnames, filenames in os.walk('../stories'):
                                               description=story['description'])
         for task in story['tasks']:
             try:
-                sbtask = sbstory.tasks.find(title=task['title'])
-                print "- Task '%s' already exists." % task['title']
+                sbtasks = sbstory.tasks.get_all()
+                if any([t.title == task['title'] for t in sbtasks]):
+                    print "- Task '%s' already exists." % task['title']
+                    print [t.id for t in sbtasks]
+                else:
+                    raise exceptions.NotFound()
             except exceptions.NotFound:
                 # TODO add a check on project names in check pipeline
                 prjs = sbclient.projects.get_all(name=task['project'])
