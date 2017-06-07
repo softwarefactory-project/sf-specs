@@ -13,6 +13,7 @@ tasks:
   - title: "local users: database migration procedure from managesf to cauth"
     project: software-factory/sf-config
   - title: "config file users: migration from cauth config.py to local users"
+    project: software-factory/sf-config
   - title: Refactor local users commands in CLI
     project: software-factory/python-sfmanager
   - title: remove local users endpoint
